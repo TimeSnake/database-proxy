@@ -11,17 +11,15 @@ import java.io.IOException;
 
 public class Config implements DatabaseConfig {
 
-    private File configFile = new File("plugins/database/config.yml");
+    private final File configFile = new File("plugins/database/config.yml");
     private Configuration config;
 
     public void onEnable() {
 
-        //ConfigFile
         File dir = new File("plugins/database");
-        if (dir.exists() == false) {
+        if (!dir.exists()) {
             dir.mkdir();
         }
-
 
         if (!configFile.exists()) {
             try {
@@ -75,6 +73,7 @@ public class Config implements DatabaseConfig {
             config.set("database.games_lounges.url", "jdbc:mysql://localhost:3306/games_lounges");
             config.set("database.games_lounges.name", "game_lounges");
             config.set("database.games_lounges.tables.maps", "maps");
+            config.set("database.games_lounges.tables.map_displays", "map_displays");
 
             config.set("database.support.url", "jdbc:mysql://localhost:3306/support");
             config.set("database.support.name", "support");
@@ -136,12 +135,12 @@ public class Config implements DatabaseConfig {
     }
 
     @Override
-    public String getDatabaseTable(String databaseType, String tableType) throws DatabaseNotConfiguredException {
+    public String getDatabaseTable(String databaseType, String tableType, String defaultName) throws DatabaseNotConfiguredException {
         String tableName = config.getString("database." + databaseType + ".tables." + tableType);
         if (tableName != null) {
             return tableName;
         }
-        throw new DatabaseNotConfiguredException(databaseType, tableType);
+        return defaultName;
     }
 
 }
