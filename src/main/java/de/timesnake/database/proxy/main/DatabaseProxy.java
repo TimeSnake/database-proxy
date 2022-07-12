@@ -1,27 +1,53 @@
 package de.timesnake.database.proxy.main;
 
+import com.google.inject.Inject;
+import com.velocitypowered.api.event.Subscribe;
+import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
+import com.velocitypowered.api.plugin.Dependency;
+import com.velocitypowered.api.plugin.Plugin;
+import com.velocitypowered.api.proxy.ProxyServer;
 import de.timesnake.database.core.file.DatabaseNotConfiguredException;
 import de.timesnake.database.proxy.file.Config;
 import de.timesnake.database.util.Database;
-import net.md_5.bungee.api.plugin.Plugin;
 
+import java.util.logging.Logger;
 
-public class DatabaseProxy extends Plugin {
+@Plugin(id = "database-proxy", name = "DatabaseProxy", version = "1.0-SNAPSHOT",
+        url = "https://git.timesnake.de", authors = {"MarkusNils"},
+        dependencies = {
+                @Dependency(id = "channel-proxy")
+        })
+public class DatabaseProxy {
 
-    @Override
-    public void onEnable() {
+    public static ProxyServer getServer() {
+        return server;
+    }
+
+    public static Logger getLogger() {
+        return logger;
+    }
+
+    private static ProxyServer server;
+    private static Logger logger;
+
+    @Inject
+    public DatabaseProxy(ProxyServer server, Logger logger) {
+        DatabaseProxy.server = server;
+        DatabaseProxy.logger = logger;
+    }
+
+    @Subscribe
+    public void onProxyInitialization(ProxyInitializeEvent event) {
         Config config = new Config();
-        config.onEnable();
-        config.load();
         try {
             Database.getInstance().connect(config);
         } catch (DatabaseNotConfiguredException e) {
-            System.out.println(e.getMessage());
+            logger.warning(e.getMessage());
         }
 
         Database.getInstance().createTables();
 
-        System.out.println("[Database] Databases loaded successfully!");
+        logger.info("[Database] Databases loaded successfully!");
 
     }
 }
