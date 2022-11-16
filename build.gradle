@@ -24,7 +24,6 @@ archivesBaseName = 'database-proxy'
 
 task buildFatJar(type: Jar) {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    baseName = archivesBaseName
     classifier = "all"
     from {
         configurations.runtimeClasspath.collect {
