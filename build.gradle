@@ -19,7 +19,7 @@ dependencies {
 }
 
 group = project.group
-version = '1.0-SNAPSHOT'
+version = project(":database-api").version
 archivesBaseName = 'database-proxy'
 
 task buildFatJar(type: Jar) {
