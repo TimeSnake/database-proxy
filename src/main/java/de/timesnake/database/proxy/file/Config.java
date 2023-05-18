@@ -13,60 +13,60 @@ import java.io.IOException;
 
 public class Config implements DatabaseConfig {
 
-    protected final File configFile;
-    protected Toml config;
-    protected TomlWriter writer;
+  protected final File configFile;
+  protected Toml config;
+  protected TomlWriter writer;
 
-    public Config() {
-        this.configFile = new File("plugins/database/config.toml");
+  public Config() {
+    this.configFile = new File("plugins/database/config.toml");
 
-        //directory creation
-        File dir = new File("plugins/database");
-        if (!dir.exists()) {
-            dir.mkdir();
-        }
-
-        if (!configFile.exists()) {
-            try {
-                configFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        this.config = new Toml();
-
-        this.load();
+    //directory creation
+    File dir = new File("plugins/database");
+    if (!dir.exists()) {
+      dir.mkdir();
     }
 
-    public void load() {
-        config.read(configFile);
+    if (!configFile.exists()) {
+      try {
+        configFile.createNewFile();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
+    this.config = new Toml();
 
-    public void save() {
-        writer.write(configFile);
-    }
+    this.load();
+  }
 
-    @Override
-    public String getString(String path) {
-        return config.getString(path);
-    }
+  public void load() {
+    config.read(configFile);
+  }
 
-    @Override
-    public String getDatabaseName(String databaseType) throws DatabaseNotConfiguredException {
-        String name = config.getString("database." + databaseType + ".name");
-        if (name != null) {
-            return name;
-        }
-        throw new DatabaseNotConfiguredException(databaseType, "name");
-    }
+  public void save() {
+    writer.write(configFile);
+  }
 
-    @Override
-    public String getDatabaseUrl(String databaseType) throws DatabaseNotConfiguredException {
-        String url = config.getString("database." + databaseType + ".url");
-        if (url != null) {
-            return url;
-        }
-        throw new DatabaseNotConfiguredException(databaseType, "url");
+  @Override
+  public String getString(String path) {
+    return config.getString(path);
+  }
+
+  @Override
+  public String getDatabaseName(String databaseType) throws DatabaseNotConfiguredException {
+    String name = config.getString("database." + databaseType + ".name");
+    if (name != null) {
+      return name;
     }
+    throw new DatabaseNotConfiguredException(databaseType, "name");
+  }
+
+  @Override
+  public String getDatabaseUrl(String databaseType) throws DatabaseNotConfiguredException {
+    String url = config.getString("database." + databaseType + ".url");
+    if (url != null) {
+      return url;
+    }
+    throw new DatabaseNotConfiguredException(databaseType, "url");
+  }
 
 }
