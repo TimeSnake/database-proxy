@@ -10,7 +10,7 @@ import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Dependency;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
-import de.timesnake.database.core.file.DatabaseNotConfiguredException;
+import de.timesnake.database.core.DatabaseNotConfiguredException;
 import de.timesnake.database.proxy.file.Config;
 import de.timesnake.database.util.Database;
 import java.util.logging.Logger;
