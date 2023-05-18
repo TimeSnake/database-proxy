@@ -1,21 +1,21 @@
 repositories {
-    mavenLocal()
-    maven {
-        url = uri 'https://papermc.io/repo/repository/maven-public/'
-    }
-    maven {
-        url = uri('https://oss.sonatype.org/content/repositories/snapshots')
-    }
-    maven {
-        url = uri 'https://repo.maven.apache.org/maven2/'
-    }
+  mavenLocal()
+  maven {
+    url = uri 'https://papermc.io/repo/repository/maven-public/'
+  }
+  maven {
+    url = uri('https://oss.sonatype.org/content/repositories/snapshots')
+  }
+  maven {
+    url = uri 'https://repo.maven.apache.org/maven2/'
+  }
 }
 
 dependencies {
-    implementation project(':database-api')
+  implementation project(':database-api')
 
-    compileOnly project.velocity
-    annotationProcessor project.velocity
+  compileOnly project.velocity
+  annotationProcessor project.velocity
 }
 
 group = project.group
@@ -23,26 +23,26 @@ version = project(":database-api").version
 archivesBaseName = 'database-proxy'
 
 task buildFatJar(type: Jar) {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    classifier = "all"
-    from {
-        configurations.runtimeClasspath.collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
+  duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+  classifier = "all"
+  from {
+    configurations.runtimeClasspath.collect {
+      it.isDirectory() ? it : zipTree(it)
     }
-    with jar
+  }
+  with jar
 }
 
 task deleteOldPluginJar(type: Delete) {
-    delete fileTree(dir: "${project.plugins_dir}", include: "**/${archivesBaseName}-*.jar")
-    onlyIf {
-        !jar.state.upToDate
-    }
+  delete fileTree(dir: "${project.plugins_dir}", include: "**/${archivesBaseName}-*.jar")
+  onlyIf {
+    !jar.state.upToDate
+  }
 }
 
 task copyJarToPlugins(type: Copy) {
-    from "build/libs/" + archivesBaseName + "-" + version + "-all" + ".jar"
-    into project.plugins_dir
+  from "build/libs/" + archivesBaseName + "-" + version + "-all" + ".jar"
+  into project.plugins_dir
 }
 
 jar.finalizedBy(buildFatJar)
