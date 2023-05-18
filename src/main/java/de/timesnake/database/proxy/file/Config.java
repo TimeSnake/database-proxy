@@ -6,8 +6,8 @@ package de.timesnake.database.proxy.file;
 
 import com.moandjiezana.toml.Toml;
 import com.moandjiezana.toml.TomlWriter;
-import de.timesnake.database.core.file.DatabaseConfig;
-import de.timesnake.database.core.file.DatabaseNotConfiguredException;
+import de.timesnake.database.core.DatabaseConfig;
+import de.timesnake.database.core.DatabaseNotConfiguredException;
 import java.io.File;
 import java.io.IOException;
 
