@@ -8,7 +8,7 @@ plugins {
 
 
 group = "de.timesnake"
-version = '2.7.0'
+version = '3.0.0'
 var projectId = 49
 
 repositories {
@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-  implementation "de.timesnake:database-api:2.+"
+  implementation "de.timesnake:database-api:3.+"
 
   compileOnly "com.velocitypowered:velocity-api:3.1.1"
   annotationProcessor "com.velocitypowered:velocity-api:3.1.1"
@@ -72,10 +72,16 @@ publishing {
   }
 }
 
-tasks.withType(JavaCompile).configureEach {
-  options.encoding = 'UTF-8'
+tasks {
+  compileJava {
+    options.encoding = "UTF-8"
+    options.release = 21
+  }
 }
 
 java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(21)
+  }
   withSourcesJar()
 }
