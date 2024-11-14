@@ -7,7 +7,7 @@ package de.timesnake.database.proxy.file;
 import com.moandjiezana.toml.Toml;
 import com.moandjiezana.toml.TomlWriter;
 import de.timesnake.database.core.DatabaseConfig;
-import de.timesnake.database.core.DatabaseNotConfiguredException;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -49,15 +49,6 @@ public class Config implements DatabaseConfig {
   @Override
   public String getString(String path) {
     return config.getString(path);
-  }
-
-  @Override
-  public String getDatabaseName(String databaseType) throws DatabaseNotConfiguredException {
-    String name = config.getString("database." + databaseType + ".name");
-    if (name != null) {
-      return name;
-    }
-    throw new DatabaseNotConfiguredException(databaseType, "name");
   }
 
 }

@@ -16,7 +16,7 @@ import de.timesnake.database.util.Database;
 
 import java.util.logging.Logger;
 
-@Plugin(id = "database-proxy", name = "DatabaseProxy", version = "1.0-SNAPSHOT",
+@Plugin(id = "database-proxy", name = "DatabaseProxy", version = "3.1.0",
     url = "https://git.timesnake.de", authors = {"timesnake"},
     dependencies = {
         @Dependency(id = "channel-proxy")
