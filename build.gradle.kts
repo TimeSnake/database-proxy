@@ -8,7 +8,7 @@ plugins {
 
 
 group = "de.timesnake"
-version = "3.1.0"
+version = "4.0.0"
 var projectId = 49
 
 repositories {
@@ -25,7 +25,7 @@ repositories {
 }
 
 dependencies {
-    implementation("de.timesnake:database-api:3.+")
+    implementation("de.timesnake:database-api:4.+")
 
     compileOnly("com.velocitypowered:velocity-api:3.3.0-SNAPSHOT")
     annotationProcessor("com.velocitypowered:velocity-api:3.3.0-SNAPSHOT")
