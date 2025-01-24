@@ -1,5 +1,5 @@
 main: de.timesnake.database.proxy.main.DatabaseProxy
-version: 4.0.0
+version: ${version}
 name: database-proxy
 author: timesnake
 depends: [ channel-proxy ]
